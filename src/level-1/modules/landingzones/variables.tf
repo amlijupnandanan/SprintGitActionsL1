@@ -23,7 +23,7 @@ variable "secondary_location" {
 }
 
 variable "root_parent_id" {
-   type        = string
+  type        = string
   description = "Give the parrent id which already present in the azure"
   default     = "landingzone"
 }

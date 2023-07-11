@@ -16,12 +16,12 @@ data "azurerm_client_config" "current" {}
 
 module "caf-enterprise-scale" {
   source  = "Azure/caf-enterprise-scale/azurerm"
-  version = "~>4.0.2" 
+  version = "~>4.0.2"
 
   default_location = var.primary_location
 
   providers = {
-    
+
     azurerm              = azurerm
     azurerm.connectivity = azurerm
     azurerm.management   = azurerm
@@ -29,15 +29,15 @@ module "caf-enterprise-scale" {
 
   # Base module configuration settings
   # root_parent_id = data.azurerm_client_config.current.tenant_id
- # Base module configuration settings
- #This should be Tenant Root Group
+  # Base module configuration settings
+  #This should be Tenant Root Group
   #root_parent_id = data.azurerm_client_config.current.tenant_id
-  root_parent_id="myexamp"
+  root_parent_id = "myexamp"
   #myroot
-  root_id        = var.root_id
+  root_id = var.root_id
   #myroot
-  root_name      = var.root_name
-  library_path   = "${path.module}/lib"
+  root_name    = var.root_name
+  library_path = "${path.module}/lib"
 
   # Disable creation of the core management group hierarchy
   # as this is being created by the core module instance
@@ -47,8 +47,8 @@ module "caf-enterprise-scale" {
   custom_landing_zones = local.custom_landing_zones_org1
 }
 module "enterprise_scale_lz" {
-  source  = "Azure/caf-enterprise-scale/azurerm"
-  version = "~>4.0.2" 
+  source           = "Azure/caf-enterprise-scale/azurerm"
+  version          = "~>4.0.2"
   default_location = "centralindia"
 
   providers = {
@@ -68,8 +68,8 @@ module "enterprise_scale_lz" {
 }
 
 module "enterprise_scale_platform" {
-  source  = "Azure/caf-enterprise-scale/azurerm"
-  version = "~>4.0.2" 
+  source           = "Azure/caf-enterprise-scale/azurerm"
+  version          = "~>4.0.2"
   default_location = "centralindia"
 
   providers = {
@@ -81,18 +81,18 @@ module "enterprise_scale_platform" {
   root_parent_id = "mg-pf"
   # root_id        = "zeeplatform"
   # root_name      = "zeeplatform"
-  library_path   = "${path.module}/lib"
+  library_path = "${path.module}/lib"
 
   deploy_core_landing_zones = false
 
   custom_landing_zones = local.custom_landing_zones_org1_lz_nested_mg_lz1
 
-  depends_on = [ module.enterprise_scale_lz ]
+  depends_on = [module.enterprise_scale_lz]
 }
 
 # resource "azurerm_management_group_policy_assignment" "policy_assign" {
 #   name = "assign-audit-rbac"
 #   management_group_id = "/providers/Microsoft.Management/managementGroups/mg-pf"
 #   policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/a451c1ef-c6ca-483d-87ed-f49761e3ffb5"
-  
+
 # }

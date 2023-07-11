@@ -16,7 +16,7 @@ data "azurerm_client_config" "current" {}
 
 module "landingzones" {
   source = "./modules/landingzones"
- providers = {
+  providers = {
     azurerm              = azurerm
     azurerm.connectivity = azurerm
     azurerm.management   = azurerm
